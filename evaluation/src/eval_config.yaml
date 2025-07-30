@@ -1,0 +1,47 @@
+# ------------------------------------------------Environment Settings------------------------------------------------#
+# Directory paths for data and outputs
+data_dir: "/mnt/ceph_rbd/TIRESRAG-R1/local/data"  # data can be downloaded from https://huggingface.co/datasets/RUC-NLPIR/FlashRAG_datasets
+save_dir: "/mnt/ceph_rbd/TIRESRAG-R1/output/model_output"
+
+# Seed for reproducibility
+seed: 2024
+gpu_id: "3"
+
+# Whether save intermediate data
+save_intermediate_data: True
+
+# -------------------------------------------------Retrieval Settings------------------------------------------------#
+# If set the remote url, the retriever will be a remote retriever and ignore following settings
+use_remote_retriever: True
+remote_retriever_url: "http://0.0.0.0:5004"  
+
+
+
+# -------------------------------------------------vllm generator settings------------------------------------------------#
+framework: vllm
+# sgl_remote_url: "url/of/your/remote/generator"
+generator_model: "qwen" #"llama" #"qwen"  # for loading tokenizer
+generator_model_path: "/mnt/ceph_rbd/model/QwQ-32B" #"/mnt/ceph_rbd/model/Qwen2.5-32B-Instruct" #"/mnt/ceph_rbd/model/r1-search-qwen-2.5-7B" #"/mnt/ceph_rbd/model/QwQ-32B"
+generator_max_input_len: 8192
+generator_batch_size: 64 # batch size for generation, invalid for vllm
+generation_params: 
+  do_sample: False
+  max_tokens: 8192
+  top_p: 0.95
+  temperature: 0
+  min_p: 0
+  top_k: 30
+  repetition_penalty: 1.05
+  stop: ["<|im_end|>", "<|endoftext|>",  "<|end_of_query|>", "</answer>", "</search>", "<|eot_id|>"]  # "</answer>",
+
+gpu_memory_utilization: 0.95
+# -------------------------------------------------Evaluation Settings------------------------------------------------#
+# Metrics to evaluate the result
+metrics: [ 'em','f1','acc','precision','recall']  # acc就是cover exact match
+# Specify setting for metric, will be called within certain metrics
+metric_setting:
+  retrieval_recall_topk: 5
+save_metric_score: True #　whether to save the metric score into txt file
+
+
+
