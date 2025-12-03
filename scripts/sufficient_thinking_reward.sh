@@ -16,4 +16,4 @@ echo "Using port: $PORT"
 
 export PORT=$PORT
 
-python3 -u ../reward/sufficient_vllm_server_question_context_answer_and_thinking.py --model_path "$MODEL_PATH"
+python3 -u ../reward/sufficient_thinking_reward.py --model_path "$MODEL_PATH"
