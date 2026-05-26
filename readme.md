@@ -48,6 +48,24 @@ pip install -r requirements.txt
 ```
 
 
+## 🤗 Pre-trained Models
+
+We release the trained checkpoints on Hugging Face:
+
+| Model | Hugging Face |
+|-------|--------------|
+| TIRESRAG-R1-Base | [probej/tiresrag-r1-base](https://huggingface.co/probej/tiresrag-r1-base) |
+| TIRESRAG-R1-Instruct | [probej/tiresrag-r1-instruct](https://huggingface.co/probej/tiresrag-r1-instruct) |
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model_name = "probej/tiresrag-r1-instruct"  # or "probej/tiresrag-r1-base"
+tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(model_name, trust_remote_code=True)
+```
+
+
 ## ⚙️ Retrieval Corpus
 
 To download the retrieval corpus, please refer to the official KILT benchmark repository:
